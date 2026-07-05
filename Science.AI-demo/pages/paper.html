@@ -1,0 +1,307 @@
+<section class="page-content w-full h-full overflow-y-auto bg-gray-50" id="paper-view">
+    <div class="max-w-5xl mx-auto px-4 py-8 space-y-6">
+        <!-- 置顶返回按钮 -->
+        <div>
+            <button onclick="goBack()" class="text-sm text-gray-600 hover:text-primary flex items-center gap-1">
+                <i class="fa fa-arrow-left"></i> 返回上一页
+            </button>
+        </div>
+
+        <!-- 第一模块：论文&作者信息头部 -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <!-- 论文标题（动态填充） -->
+            <h1 class="text-xl font-bold text-gray-900 mb-4" id="paper-title"></h1>
+
+            <!-- 作者信息行（姓名+标签动态，其他标签静态展示） -->
+            <div class="mb-4">
+                <div class="text-xs text-gray-500 mb-2">作者</div>
+                <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center text-xl font-medium shrink-0" id="paper-author-avatar">张</div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span id="paper-author-name" onclick="jumpBackScholar(1)" class="text-lg font-medium text-gray-800 cursor-pointer hover:bg-gray-100 rounded px-1 py-0.5 transition-colors"></span>
+                            <span id="paper-author-type" class="text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded border border-gray-200"></span>
+                            <span class="text-xs px-2 py-0.5 bg-blue-50 text-primary rounded">学术认证用户</span>
+                            <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded border border-gray-200">预印本投稿者</span>
+                            <span class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded">该学者涉嫌学术不端，已被封禁</span>
+                            <span class="text-xs px-2 py-0.5 bg-orange-50 text-orange-600 rounded">多篇论文存在数据造假</span>
+                            <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded">机构已撤销其学术头衔</span>
+                            <span class="text-xs px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded border border-indigo-200">学派创始人</span>
+                            <span class="text-xs px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded border border-indigo-200">理论原创贡献者</span>
+                            <span class="text-xs px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded border border-indigo-200">概念首创者</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1" id="paper-author-field"></p>
+                        <button id="paper-author-link" onclick="jumpBackScholar(1)" class="mt-2 text-sm text-primary hover:underline flex items-center gap-1">
+                            <i class="fa fa-user-o"></i> 查看作者主页
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 期刊、发布、分类标签 -->
+            <div class="flex flex-wrap gap-4 text-sm text-gray-600 border-t border-gray-100 pt-4">
+                <div>
+                    <span class="text-gray-400 text-xs">学科分类</span>
+                    <p id="paper-category"></p>
+                </div>
+                <div>
+                    <span class="text-gray-400 text-xs">发布时间</span>
+                    <p id="paper-date"></p>
+                </div>
+                <div>
+                    <span class="text-gray-400 text-xs">互动数据</span>
+                    <p id="paper-stats"></p>
+                </div>
+            </div>
+
+            <!-- 摘要 + 底部横向论文状态标签 -->
+            <div class="mt-5">
+                <div class="text-xs text-gray-500 mb-2">论文摘要</div>
+                <p class="text-sm text-gray-700 leading-relaxed" id="paper-abstract"></p>
+                <div class="space-y-2 mt-3">
+                    <!-- 第一行：状态类标签（静态展示） -->
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-0.5 bg-yellow-50 text-yellow-700 rounded border border-yellow-200">预印本（未经同行评审）</span>
+                        <span class="text-xs px-2 py-0.5 bg-orange-50 text-orange-600 rounded border border-orange-200">同行评审中</span>
+                        <span class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded border border-red-200">涉嫌学术造假</span>
+                        <span class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded border border-red-200">已从《现代物理评论》撤稿下架</span>
+                        <span class="text-xs px-2 py-0.5 bg-amber-50 text-amber-600 rounded border border-amber-200">AI质检存疑</span>
+                        <span class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded border border-red-200">学术争议中</span>
+                        <span class="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded border border-emerald-200">AI质检通过</span>
+                        <span class="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded border border-emerald-200">已通过复现检验</span>
+                    </div>
+
+                    <!-- 第二行：收录与等级类标签（静态展示） -->
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded border border-green-200">本文已收录《物理学报》</span>
+                        <span class="text-xs px-2 py-0.5 bg-blue-50 text-primary rounded border border-blue-200">SCI一区期刊</span>
+                        <span class="text-xs px-2 py-0.5 bg-purple-50 text-purple-600 rounded border border-purple-200">开放获取OA论文</span>
+                        <span class="text-xs px-2 py-0.5 bg-teal-50 text-teal-600 rounded border border-teal-200">原始数据已公开</span>
+                        <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded border border-gray-200">作者声明AI辅助写作</span>
+                    </div>
+
+                    <!-- 第三行：影响力与特殊价值类标签（静态展示） -->
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-0.5 bg-pink-50 text-pink-600 rounded border border-pink-200">高被引论文</span>
+                        <span class="text-xs px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded border border-indigo-200">概念首创</span>
+                        <span class="text-xs px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded border border-indigo-200">里程碑论文</span>
+                        <span class="text-xs px-2 py-0.5 bg-violet-50 text-violet-600 rounded border border-violet-200">跨学科突破</span>
+                        <span class="text-xs px-2 py-0.5 bg-amber-50 text-amber-600 rounded border border-amber-200">已有正式辩驳发表</span>
+                        <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded border border-gray-200">被SA归档</span>
+                        <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded border border-gray-200">历史文献</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮组 -->
+            <div class="flex gap-3 mt-6">
+                <button class="px-4 py-1.5 text-sm border border-gray-300 rounded hover:bg-gray-50">收藏论文</button>
+                <button class="px-4 py-1.5 text-sm border border-gray-300 rounded hover:bg-gray-50">引用格式</button>
+                <button class="px-4 py-1.5 text-sm border border-gray-300 rounded hover:bg-gray-50">导出PDF</button>
+                <button onclick="toggleQCpanel()" class="px-4 py-1.5 text-sm bg-primary text-white rounded hover:bg-blue-800 transition-colors">AI质检结果</button>
+            </div>
+        </div>
+
+        <!-- 第二模块：PDF阅读主区域 -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-medium text-gray-800">论文全文阅读</h2>
+            </div>
+
+            <!-- PDF渲染容器：高度自适应PDF，无固定高度，无滚动条 -->
+            <div id="pdf-container" class="w-full bg-gray-100 rounded border border-dashed border-gray-300 overflow-hidden p-4">
+                <div id="pdf-wrap-box">
+                    <canvas id="pdf-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- 分页控制栏：放在PDF正下方，居中 -->
+            <div class="flex items-center justify-center gap-4 mt-4">
+                <button id="btn-prev" onclick="prevPage()" class="border border-gray-200 px-4 py-2 rounded text-sm hover:bg-gray-50" disabled>上一页</button>
+                <span class="text-sm text-gray-600">页码：<span id="page-num">0</span> / <span id="page-total">0</span></span>
+                <button id="btn-next" onclick="nextPage()" class="border border-gray-200 px-4 py-2 rounded text-sm hover:bg-gray-50" disabled>下一页</button>
+            </div>
+        </div>
+
+        <!-- 论文评论模块 -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mt-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-medium text-gray-800">评论与反馈</h3>
+                <span class="text-xs text-gray-400">3条评论</span>
+            </div>
+
+            <!-- 评论输入框 -->
+            <div class="mb-6 pb-4 border-b border-gray-100">
+                <textarea 
+                    class="w-full border border-gray-200 rounded-lg p-3 text-sm text-gray-600 resize-none" 
+                    rows="3" 
+                    placeholder="写下你的评论或疑问..."></textarea>
+                <div class="flex justify-between items-center mt-2">
+                    <span class="text-xs text-gray-400">文明讨论，尊重论证</span>
+                    <button onclick="alert('功能开发中')" class="px-4 py-2 bg-primary text-white text-sm rounded hover:bg-blue-800 transition-colors">发布评论</button>
+                </div>
+            </div>
+
+            <!-- 评论列表 -->
+            <div class="space-y-4">
+                <!-- 评论1 -->
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-xs text-white shrink-0">李</div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-sm font-medium text-gray-700">李华</span>
+                            <span class="text-xs text-gray-400">2024-06-12</span>
+                        </div>
+                        <p class="text-sm text-gray-600">方法部分的样本量选择依据不太清楚。作者用的是n=30，但这个领域通常需要n≥50才能达到足够的统计效力。是否考虑过这个问题？</p>
+                        <div class="flex gap-3 mt-2 text-xs text-gray-400">
+                            <button class="hover:text-primary">回复</button>
+                            <button class="hover:text-primary">👍 5</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 评论2 -->
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-xs text-white shrink-0">王</div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-sm font-medium text-gray-700">王芳</span>
+                            <span class="text-xs bg-blue-50 text-primary px-1.5 py-0.5 rounded">作者</span>
+                            <span class="text-xs text-gray-400">2024-06-14</span>
+                        </div>
+                        <p class="text-sm text-gray-600">感谢指出。我们在预实验阶段确实用了n=50，结果和n=30一致。选择n=30主要考虑实验成本和效应量的平衡。完整预实验数据已上传至Zenodo，可以在论文的数据链接中找到。</p>
+                        <div class="flex gap-3 mt-2 text-xs text-gray-400">
+                            <button class="hover:text-primary">回复</button>
+                            <button class="hover:text-primary">👍 8</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 评论3 -->
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-xs text-white shrink-0">赵</div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-sm font-medium text-gray-700">赵强</span>
+                            <span class="text-xs text-gray-400">2024-06-16</span>
+                        </div>
+                        <p class="text-sm text-gray-600">图3的误差棒看起来特别小，是所有实验组的真实情况，还是只报告了部分数据？建议在下一版中补充完整的统计描述。</p>
+                        <div class="flex gap-3 mt-2 text-xs text-gray-400">
+                            <button class="hover:text-primary">回复</button>
+                            <button class="hover:text-primary">👍 12</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI质检报告 - 右侧滑入面板 -->
+        <div id="qc-panel" class="fixed top-0 right-0 h-full w-[400px] max-w-[90vw] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+            <!-- 面板头部 -->
+            <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 shrink-0">
+                <div class="flex items-center gap-2">
+                    <i class="fa fa-shield text-primary text-lg"></i>
+                    <h2 class="text-lg font-bold text-gray-900">AI 质检报告</h2>
+                </div>
+                <button onclick="toggleQCpanel()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+
+            <!-- 面板内容 - 可滚动 -->
+            <div class="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+                <!-- 报告说明 -->
+                <div class="text-xs text-gray-500 bg-gray-50 rounded-lg p-3">
+                    本报告由 SA 质检引擎自动生成，基于论证形式与文献关系检验，不评判观点对错。以下为本次检测的可疑点与评估。
+                </div>
+
+                <!-- 维度 1：论证完整性 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-gray-800">论证完整性</h3>
+                        <span class="text-xs px-2 py-0.5 bg-yellow-50 text-yellow-700 rounded border border-yellow-200">⚠ 存疑</span>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-start gap-2">
+                            <span class="text-yellow-600 mt-0.5 shrink-0">⚠</span>
+                            <p class="text-gray-700">第4页第2段：结论性短语"因此"出现 3 次，但前方缺少必要的推导步骤。建议补充中间论证。</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="text-yellow-600 mt-0.5 shrink-0">⚠</span>
+                            <p class="text-gray-700">第7页"讨论"部分：新提出"信息熵与纠缠度存在线性关系"这一主张，但在前文"结果"部分未找到对应数据支撑。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 维度 2：证据基础 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-gray-800">证据基础</h3>
+                        <span class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded border border-red-200">✗ 存在疑点</span>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-start gap-2">
+                            <span class="text-red-500 mt-0.5 shrink-0">✗</span>
+                            <p class="text-gray-700">第4页表2：实验组与对照组的标准差完全一致（均为 ±3.8），在生物实验中极不寻常。置信度：高。</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="text-yellow-600 mt-0.5 shrink-0">⚠</span>
+                            <p class="text-gray-700">第12页讨论部分：声称"与 Smith et al.(2023) 结论一致"，但 Smith 原文的核心结论方向与本研究的结论存在实质差异。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 维度 3：图片异常检测 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-gray-800">图片异常检测</h3>
+                        <span class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded border border-red-200">✗ 发现异常</span>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-start gap-2">
+                            <span class="text-red-500 mt-0.5 shrink-0">✗</span>
+                            <p class="text-gray-700">第7页图3C：与作者 2024 年发表于某期刊的图5B存在 89% 像素重叠，疑似图片复用。置信度：高。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 维度 4：概念溯源 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-gray-800">概念溯源</h3>
+                        <span class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded border border-green-200">✓ 通过</span>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-start gap-2">
+                            <span class="text-green-600 mt-0.5 shrink-0">✓</span>
+                            <p class="text-gray-700">核心概念"熵变速率"的引用链完整，最早来源为 Landauer(1961)，后续演化路径清晰。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 维度 5：文本异常扫描 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-gray-800">文本异常扫描</h3>
+                        <span class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded border border-green-200">✓ 通过</span>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-start gap-2">
+                            <span class="text-green-600 mt-0.5 shrink-0">✓</span>
+                            <p class="text-gray-700">未检测到隐藏文本、白色字体注入、过审提示词等异常。</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="text-green-600 mt-0.5 shrink-0">✓</span>
+                            <p class="text-gray-700">术语"信息熵"在全文中使用一致，未发现概念漂移。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部声明 -->
+                <div class="text-xs text-gray-400 text-center pt-3 border-t border-gray-100">
+                    以上仅为形式检查，不构成最终判定。最终判断请以同行评议为准。
+                </div>
+            </div>
+        </div>
+</section>

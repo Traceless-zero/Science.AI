@@ -1,0 +1,75 @@
+<section class="page-content w-full h-full overflow-y-auto bg-gray-50" id="message-view">
+    <div class="max-w-4xl mx-auto px-6 py-8 space-y-6">
+        <!-- 标题区域 -->
+        <div>
+            <h1 class="text-[26px] font-bold text-gray-900">消息通知</h1>
+            <p class="text-sm text-gray-500 mt-1">查看研究方向更新、系统通知与互动提醒</p>
+        </div>
+
+        <!-- 分类筛选 + 操作 -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border border-gray-200 rounded-lg p-3 bg-white">
+            <div class="flex flex-wrap gap-2">
+                <button onclick="switchMsgTab('all')" data-tab="all" class="px-4 py-1 rounded bg-blue-600 text-white text-sm hover:opacity-90">全部</button>
+                <button onclick="switchMsgTab('research')" data-tab="research" class="px-4 py-1 rounded border text-sm hover:bg-gray-100">研究更新</button>
+                <button onclick="switchMsgTab('system')" data-tab="system" class="px-4 py-1 rounded border text-sm hover:bg-gray-100">系统通知</button>
+                <button onclick="switchMsgTab('interaction')" data-tab="interaction" class="px-4 py-1 rounded border text-sm hover:bg-gray-100">互动提醒</button>
+            </div>
+            <div class="flex gap-2">
+                <button class="text-xs text-primary hover:underline">全部标为已读</button>
+                <span class="text-gray-300">|</span>
+                <button class="text-xs text-gray-400 hover:text-red-500">清空</button>
+            </div>
+        </div>
+
+        <!-- 消息列表 -->
+        <div id="message-list-view">
+            <div class="space-y-3">
+
+                <!-- 消息 1：研究更新（未读） -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow flex items-start gap-4 msg-item" data-type="research">
+                    <span class="w-2 h-2 rounded-full bg-blue-600 mt-2 shrink-0" title="未读"></span>
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-primary flex items-center justify-center shrink-0">
+                        <i class="fa fa-flask text-sm"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-800">研究方向更新</span>
+                            <span class="text-xs text-gray-400">10 分钟前</span>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">学术界已确认新的研究方向：<span class="text-primary font-medium">量子领域</span></p>
+                    </div>
+                </div>
+
+                <!-- 消息 2：系统通知（已读） -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow flex items-start gap-4 msg-item" data-type="system">
+                    <span class="w-2 h-2 rounded-full mt-2 shrink-0 invisible"></span>
+                    <div class="w-10 h-10 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center shrink-0">
+                        <i class="fa fa-cog text-sm"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-800">系统通知</span>
+                            <span class="text-xs text-gray-400">昨天</span>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">AI 质检引擎已更新至 v2.1 版本，新增<span class="text-primary font-medium">概念溯源</span>能力</p>
+                    </div>
+                </div>
+
+                <!-- 消息 3：互动提醒（已读） -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow flex items-start gap-4 msg-item" data-type="interaction">
+                    <span class="w-2 h-2 rounded-full mt-2 shrink-0 invisible"></span>
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-primary flex items-center justify-center shrink-0">
+                        <i class="fa fa-commenting-o text-sm"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-sm font-medium text-gray-800">互动提醒</span>
+                            <span class="text-xs text-gray-400">2 天前</span>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">你的投稿《量子纠缠系统中信息熵演化的数值模拟研究》获得 <span class="text-primary font-medium">3 条新评论</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
