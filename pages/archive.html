@@ -1,0 +1,122 @@
+<section class="page-content w-full h-full overflow-y-auto bg-gray-50">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+        
+        <!-- ========== 一级视图：学者归档列表 ========== -->
+        <div id="archive-list-view">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-dark">学者归档</h1>
+                <p class="text-gray-600 text-sm mt-1">系统化整理学术史上的重要思想者，永久留存、公开讨论</p>
+            </div>
+
+            <!-- 搜索筛选栏 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4 mb-6 flex items-center gap-3">
+                <div class="flex-1 relative">
+                    <i class="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input 
+                        type="text" 
+                        placeholder="搜索学者姓名、研究领域..."
+                        class="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-secondary"
+                    >
+                </div>
+                <select class="border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-600 focus:outline-none focus:border-secondary">
+                    <option>全部分类</option>
+                    <option>哲学</option>
+                    <option>物理学</option>
+                    <option>社会学</option>
+                    <option>环境科学</option>
+                </select>
+            </div>
+
+            <!-- 学者卡片网格 -->
+            <div id="archive-card-list" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- 卡片由 JS 渲染 -->
+            </div>
+        </div>
+
+        <!-- ========== 二级视图：学者详情页 ========== -->
+        <div id="archive-detail-view" class="hidden">
+            <!-- 返回按钮 -->
+            <button onclick="closeArchiveDetail()" class="mb-4 text-sm text-gray-600 hover:text-primary flex items-center">
+                <i class="fa fa-arrow-left mr-2"></i>返回学者列表
+            </button>
+
+            <!-- 归档头部：学者基本信息 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-start space-x-6">
+                    <div class="w-24 h-24 rounded-full bg-gray-100 border border-gray-200 flex-shrink-0 flex items-center justify-center text-3xl font-serif text-gray-500" id="detail-avatar">
+                        维
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <h1 class="text-2xl font-bold text-gray-900" id="detail-name">路德维希·维特根斯坦</h1>
+                            <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded">已归档 · 永久留存</span>
+                        </div>
+                        <p class="text-gray-600 mb-3" id="detail-summary"></p>
+                        
+                        <!-- 学派归属 -->
+                        <div class="flex items-center gap-3 mb-3 pb-3 border-b border-gray-100">
+                            <span class="text-xs text-gray-400 font-medium">所属学派</span>
+                            <div class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer" onclick="switchTab('school')">
+                                <div class="w-6 h-6 rounded-full bg-blue-200 text-primary flex items-center justify-center text-xs font-bold">维</div>
+                                <span class="text-sm text-primary font-medium">维也纳学派</span>
+                                <span class="text-xs text-gray-400">逻辑实证主义传统</span>
+                                <i class="fa fa-chevron-right text-xs text-gray-400 ml-1"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 text-sm text-gray-500">
+                            <span><i class="fa fa-calendar-o mr-1"></i> <span id="detail-lifespan"></span></span>
+                            <span><i class="fa fa-graduation-cap mr-1"></i> 研究领域：<span id="detail-field"></span></span>
+                            <span><i class="fa fa-map-marker mr-1"></i> <span id="detail-institution"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 核心数据区 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <div class="lg:col-span-2 bg-white border border-gray-200 rounded-lg p-6">
+                    <h2 class="text-lg font-semibold mb-4 border-b border-gray-100 pb-2">核心学术贡献</h2>
+                    <ul class="space-y-3 text-sm text-gray-700" id="detail-contributions">
+                        <!-- 由JS渲染 -->
+                    </ul>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h2 class="text-lg font-semibold mb-4 border-b border-gray-100 pb-2">归档数据</h2>
+                    <div class="space-y-4" id="detail-stats">
+                        <!-- 由JS渲染 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 学术年表 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <h2 class="text-lg font-semibold mb-6 border-b border-gray-100 pb-2">学术思想年表</h2>
+                <div id="detail-timeline" class="space-y-6 pl-4 border-l-2 border-gray-200">
+                    <!-- 由JS渲染 -->
+                </div>
+            </div>
+
+            <!-- 代表著作 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <h2 class="text-lg font-semibold mb-4 border-b border-gray-100 pb-2">核心代表著作</h2>
+                <div id="detail-works" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 由JS渲染 -->
+                </div>
+            </div>
+
+            <!-- 后继相关学术成果 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-2">
+                    <h2 class="text-lg font-semibold text-gray-800">后继相关学术成果</h2>
+                    <span class="text-xs text-gray-500">基于其理论的后续延伸研究</span>
+                </div>
+
+                <div class="space-y-6" id="archive-successor-list">
+                    <!-- 由 JS 渲染 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

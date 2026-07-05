@@ -1,0 +1,235 @@
+<section class="page-content w-full h-full overflow-y-auto bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        
+        <!-- ========== 一级视图：期刊列表 ========== -->
+        <div id="journal-list-view">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-dark">期刊分区</h1>
+                <p class="text-gray-600 text-sm mt-1">标准化学术期刊索引 · 文献溯源底座 · 全平台内容双向关联</p>
+            </div>
+
+            <!-- 检索筛选栏 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4 mb-6 flex flex-wrap items-center gap-3">
+                <div class="flex-1 relative min-w-[240px]">
+                    <i class="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input 
+                        type="text" 
+                        placeholder="搜索期刊名称、ISSN、学科领域..."
+                        class="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-secondary"
+                    >
+                </div>
+                <select class="border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-600 focus:outline-none focus:border-secondary">
+                    <option>全部分类</option>
+                    <option>哲学</option>
+                    <option>物理学</option>
+                    <option>社会学</option>
+                    <option>环境科学</option>
+                </select>
+                <select class="border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-600 focus:outline-none focus:border-secondary">
+                    <option>全部等级</option>
+                    <option>CSSCI 核心</option>
+                    <option>北大核心</option>
+                    <option>SCI 一区</option>
+                    <option>SCI 二区</option>
+                </select>
+                <select class="border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-600 focus:outline-none focus:border-secondary">
+                    <option>全部状态</option>
+                    <option>正常收录</option>
+                    <option>预警期刊</option>
+                </select>
+            </div>
+
+            <!-- 期刊卡片网格 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="journal-card-container">
+                <!-- 由 JS 渲染 -->
+            </div>
+
+            <div class="mt-8 text-xs text-gray-400 text-center">
+                分区数据来源于官方公开目录，仅作索引展示，不构成投稿建议 · 点击卡片进入期刊档案页
+            </div>
+        </div>
+
+        <!-- ========== 二级视图：期刊详情 ========== -->
+        <div id="journal-detail-view" class="hidden">
+            <!-- 返回按钮 -->
+            <button onclick="closeJournalDetail()" class="mb-4 text-sm text-gray-600 hover:text-primary flex items-center">
+                <i class="fa fa-arrow-left mr-2"></i>返回期刊列表
+            </button>
+
+            <!-- 期刊头部基本信息 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-2">
+                            <h1 class="text-2xl font-bold text-gray-900" id="detail-journal-name">哲学研究</h1>
+                            <span class="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded" id="detail-journal-level">CSSCI 来源刊</span>
+                            <span class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded" id="detail-journal-status">正常收录</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-3" id="detail-journal-ename">Philosophical Researches · 国家哲学社会科学一级期刊</p>
+                        <div class="flex flex-wrap gap-4 text-sm text-gray-500">
+                            <span><i class="fa fa-building-o mr-1"></i> 主办单位：<span id="detail-journal-publisher">中国社会科学院哲学研究所</span></span>
+                            <span><i class="fa fa-calendar-o mr-1"></i> 出版周期：<span id="detail-journal-cycle">月刊</span></span>
+                            <span><i class="fa fa-hashtag mr-1"></i> ISSN：<span id="detail-journal-issn">1000-0216</span></span>
+                        </div>
+                    </div>
+                    <div class="flex flex-shrink-0 space-x-3">
+                        <a href="#" class="border border-gray-300 text-gray-700 px-4 py-2 rounded text-sm hover:border-primary hover:text-primary transition-colors">
+                            <i class="fa fa-globe mr-1"></i> 官方网站
+                        </a>
+                        <a href="#" class="bg-primary text-white px-4 py-2 rounded text-sm hover:bg-primary/90 transition-colors">
+                            <i class="fa fa-send-o mr-1"></i> 在线投稿
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 核心数据区：左栏（投稿参考+简介） + 右栏（核心指标） -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- 投稿录用参考 -->
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h2 class="text-lg font-semibold mb-4 border-b border-gray-100 pb-2">投稿录用参考</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                            <div class="bg-gray-50 rounded p-3">
+                                <div class="text-base font-semibold text-gray-800 mb-1" id="detail-difficulty">中等偏难</div>
+                                <div class="text-xs text-gray-500">录用难度</div>
+                            </div>
+                            <div class="bg-gray-50 rounded p-3">
+                                <div class="text-base font-semibold text-gray-800 mb-1" id="detail-review-time">3-4 个月</div>
+                                <div class="text-xs text-gray-500">平均一审周期</div>
+                            </div>
+                            <div class="bg-gray-50 rounded p-3">
+                                <div class="text-base font-semibold text-gray-800 mb-1" id="detail-accept-rate">约 22%</div>
+                                <div class="text-xs text-gray-500">整体录用率</div>
+                            </div>
+                            <div class="bg-gray-50 rounded p-3">
+                                <div class="text-base font-semibold text-gray-800 mb-1" id="detail-site-accept">6 篇</div>
+                                <div class="text-xs text-gray-500">本站用户成功录用</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-4">* 数据来源于本站用户自主反馈与公开信息整理，仅供参考，具体以期刊官方为准</p>
+                    </div>
+
+                    <!-- 期刊简介 -->
+                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                        <h2 class="text-lg font-semibold mb-4 border-b border-gray-100 pb-2">期刊简介</h2>
+                        <div class="text-sm text-gray-700 leading-relaxed space-y-3" id="detail-intro">
+                            <p>《哲学研究》创刊于1955年，是中国社会科学院主管、中国社会科学院哲学研究所主办的国家级哲学专业学术期刊，是新中国成立后第一份全国性哲学理论刊物。</p>
+                            <p>本刊坚持以马克思主义为指导，立足中国、面向世界，关注哲学基础理论研究与前沿问题探讨，涵盖马克思主义哲学、中国哲学、西方哲学、逻辑学、伦理学、美学、宗教哲学、科学技术哲学等全部哲学二级学科，是国内哲学领域最具权威性与影响力的核心期刊之一。</p>
+                            <p>本刊始终坚持学术性、思想性、前沿性并重的办刊原则，注重推陈出新，鼓励学术争鸣，致力于推动中国哲学学科建设与学术繁荣。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右栏：核心指标 -->
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h2 class="text-lg font-semibold mb-4 border-b border-gray-100 pb-2">核心指标</h2>
+                    <div class="space-y-4" id="detail-indicators">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">复合影响因子</span>
+                            <span class="font-medium text-gray-800">2.345</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">综合影响因子</span>
+                            <span class="font-medium text-gray-800">1.482</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">期刊分区</span>
+                            <span class="font-medium text-gray-800">CSSCI 来源刊</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">平均审稿周期</span>
+                            <span class="font-medium text-gray-800">3-6 个月</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">年发文量</span>
+                            <span class="font-medium text-gray-800">约 120 篇</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">创刊时间</span>
+                            <span class="font-medium text-gray-800">1955 年</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 投稿须知 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <h2 class="text-lg font-semibold mb-4 border-b border-gray-100 pb-2">投稿须知</h2>
+                <div class="text-sm text-gray-700 leading-relaxed space-y-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="detail-submission-guide">
+                        <div>
+                            <div class="font-medium text-gray-800 mb-1">投稿方式</div>
+                            <p class="text-gray-600">仅接受官方采编系统在线投稿，不接受邮箱投稿与纸质投稿。作者需注册账号后按系统提示提交稿件。</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-800 mb-1">审稿流程</div>
+                            <p class="text-gray-600">实行三审制：编辑初审 → 同行专家匿名外审 → 编委会终审。外审阶段通常为 2-3 位评审专家。</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-800 mb-1">格式要求</div>
+                            <p class="text-gray-600">正文采用页下注格式，需附 300 字左右中文摘要、3-5 个关键词，以及对应的英文标题与摘要。</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-800 mb-1">版面费用</div>
+                            <p class="text-gray-600">不收取任何形式的审稿费与版面费，稿件录用后按国家规定支付作者稿酬。</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 pt-2 border-t border-gray-100">* 以上信息整理自官方公开投稿指南，具体要求以期刊官网最新公告为准。</p>
+                </div>
+            </div>
+
+            <!-- 收录与评级 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <h2 class="text-lg font-semibold mb-4 border-b border-gray-100 pb-2">收录与评级</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm" id="detail-index-db">
+                    <div class="bg-gray-50 rounded p-3 text-center">
+                        <i class="fa fa-check-circle text-green-500 mb-1"></i>
+                        <div class="text-gray-700">CSSCI 来源期刊</div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-3 text-center">
+                        <i class="fa fa-check-circle text-green-500 mb-1"></i>
+                        <div class="text-gray-700">北大核心期刊</div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-3 text-center">
+                        <i class="fa fa-check-circle text-green-500 mb-1"></i>
+                        <div class="text-gray-700">知网全文收录</div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-3 text-center">
+                        <i class="fa fa-check-circle text-green-500 mb-1"></i>
+                        <div class="text-gray-700">万方数据库收录</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 本站收录论文 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-2">
+                    <h2 class="text-lg font-semibold text-gray-800">本站收录该期刊论文（共 12 篇）</h2>
+                    <a href="#" class="text-xs text-primary hover:text-secondary">查看全部</a>
+                </div>
+                <div class="space-y-4" id="detail-paper-list">
+                    <!-- 由 JS 渲染 -->
+                </div>
+            </div>
+
+            <!-- 相关辩论 -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-2">
+                    <h2 class="text-lg font-semibold text-gray-800">相关辩论</h2>
+                    <a href="#" class="text-xs text-primary hover:text-secondary">查看全部 3 场</a>
+                </div>
+                <div class="space-y-3" id="detail-debate-list">
+                    <!-- 由 JS 渲染 -->
+                </div>
+            </div>
+
+            <!-- 底部声明 -->
+            <div class="mt-8 text-xs text-gray-400 text-center leading-relaxed">
+                本站仅提供期刊信息索引与文献关联服务，不参与投稿代理、不承诺录用结果<br>
+                所有投稿事宜请以期刊官方渠道最新要求为准，分区数据来源于官方公开目录
+            </div>
+        </div>
+
+    </div>
+</section>
